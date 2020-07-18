@@ -5,6 +5,11 @@
     <string name="no_todos_found">No ToDos Found!</string>
     <string name="title">Title</string>
     <string name="description">Description</string>
+    <string name="search">Search</string>
+    <string name="sort_by">Sort By</string>
+    <string name="priority_high">Priority High</string>
+    <string name="priority_low">Priority Low</string>
+    <string name="delete_all_todos">Delete All</string>
 
     <string-array name="priority">
         <item>High Priority</item>
