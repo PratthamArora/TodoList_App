@@ -1,21 +1,21 @@
 package com.pratthamarora.todoapp.ui.fragments
 
 import android.os.Bundle
-import android.text.TextUtils
 import android.view.*
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.pratthamarora.todoapp.R
-import com.pratthamarora.todoapp.data.model.Priority
 import com.pratthamarora.todoapp.data.model.TodoList
+import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
 
 class AddFragment : Fragment() {
 
     private val viewModel by viewModels<ToDoViewModel>()
+    private val sharedViewModel by viewModels<SharedViewModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,12 +44,12 @@ class AddFragment : Fragment() {
         val title = titleET.text.toString()
         val priority = spinnerPriority.selectedItem.toString()
         val desc = descriptionET.text.toString()
-        val validate = checkData(title, desc)
+        val validate = sharedViewModel.checkData(title, desc)
         if (validate) {
             val newTodo = TodoList(
                 0,
                 title,
-                setPriority(priority),
+                sharedViewModel.setPriority(priority),
                 desc
             )
             viewModel.insertData(newTodo)
@@ -62,18 +62,5 @@ class AddFragment : Fragment() {
 
     }
 
-    private fun checkData(title: String, description: String): Boolean {
-        return if ((TextUtils.isEmpty(title) || TextUtils.isEmpty(description))) {
-            false
-        } else !(title.isEmpty() || description.isEmpty())
-    }
 
-    private fun setPriority(priority: String): Priority {
-        return when (priority) {
-            "High Priority" -> Priority.HIGH
-            "Medium Priority" -> Priority.MEDIUM
-            "Low Priority" -> Priority.LOW
-            else -> Priority.LOW
-        }
-    }
 }
