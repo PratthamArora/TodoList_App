@@ -8,8 +8,8 @@
     <fragment
         android:id="@+id/listFragment"
         android:name="com.pratthamarora.todoapp.ui.fragments.ListFragment"
-        android:label="fragment_list"
-        tools:layout="@layout/fragment_list" >
+        android:label="ToDo List"
+        tools:layout="@layout/fragment_list">
         <action
             android:id="@+id/action_listFragment_to_updateFragment"
             app:destination="@id/updateFragment" />
@@ -20,8 +20,8 @@
     <fragment
         android:id="@+id/addFragment"
         android:name="com.pratthamarora.todoapp.ui.fragments.AddFragment"
-        android:label="fragment_add"
-        tools:layout="@layout/fragment_add" >
+        android:label="Add ToDo"
+        tools:layout="@layout/fragment_add">
         <action
             android:id="@+id/action_addFragment_to_listFragment"
             app:destination="@id/listFragment" />
@@ -29,8 +29,8 @@
     <fragment
         android:id="@+id/updateFragment"
         android:name="com.pratthamarora.todoapp.ui.fragments.UpdateFragment"
-        android:label="fragment_update"
-        tools:layout="@layout/fragment_update" >
+        android:label="Update ToDo"
+        tools:layout="@layout/fragment_update">
         <action
             android:id="@+id/action_updateFragment_to_listFragment"
             app:destination="@id/listFragment" />
