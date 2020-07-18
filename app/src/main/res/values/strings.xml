@@ -3,4 +3,12 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="no_todos_found">No ToDos Found!</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+
+    <string-array name="priority">
+        <item>High Priority</item>
+        <item>Medium Priority</item>
+        <item>Low Priority</item>
+    </string-array>
 </resources>
