@@ -4,13 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.Priority
-import com.pratthamarora.todoapp.data.model.TodoList
+import com.pratthamarora.todoapp.data.model.TodoData
+import com.pratthamarora.todoapp.ui.fragments.ListFragmentDirections
 import kotlinx.android.synthetic.main.todo_item.view.*
 
-class TodoAdapter(private var todoList: List<TodoList>) :
+class TodoAdapter(private var todoList: List<TodoData>) :
     RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view)
@@ -49,10 +51,16 @@ class TodoAdapter(private var todoList: List<TodoList>) :
                     )
                 )
             }
+            itemBG.setOnClickListener {
+                val action = ListFragmentDirections.actionListFragmentToUpdateFragment(
+                    todo = todo
+                )
+                findNavController().navigate(action)
+            }
         }
     }
 
-    fun setList(list: List<TodoList>) {
+    fun setList(list: List<TodoData>) {
         this.todoList = list
         notifyDataSetChanged()
     }

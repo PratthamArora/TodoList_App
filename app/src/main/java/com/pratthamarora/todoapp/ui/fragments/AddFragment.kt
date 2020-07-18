@@ -7,7 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.pratthamarora.todoapp.R
-import com.pratthamarora.todoapp.data.model.TodoList
+import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -48,7 +48,7 @@ class AddFragment : Fragment() {
         val desc = descriptionET.text.toString()
         val validate = sharedViewModel.checkData(title, desc)
         if (validate) {
-            val newTodo = TodoList(
+            val newTodo = TodoData(
                 0,
                 title,
                 sharedViewModel.setPriority(priority),

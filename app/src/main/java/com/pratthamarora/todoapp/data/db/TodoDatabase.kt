@@ -5,9 +5,9 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.pratthamarora.todoapp.data.model.TodoList
+import com.pratthamarora.todoapp.data.model.TodoData
 
-@Database(entities = [TodoList::class], version = 1)
+@Database(entities = [TodoData::class], version = 1)
 @TypeConverters(MyConverters::class)
 abstract class TodoDatabase : RoomDatabase() {
 

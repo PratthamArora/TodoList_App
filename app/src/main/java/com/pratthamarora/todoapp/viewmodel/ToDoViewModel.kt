@@ -5,7 +5,7 @@ import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
 import com.pratthamarora.todoapp.data.db.TodoDatabase
-import com.pratthamarora.todoapp.data.model.TodoList
+import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.data.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
@@ -14,14 +14,14 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
 
     private val todoDao = TodoDatabase.getDatabase(application).toDoDao()
     private val repository: TodoRepository
-     val getAllData: LiveData<List<TodoList>>
+     val getAllData: LiveData<List<TodoData>>
 
     init {
         repository = TodoRepository(todoDao)
         getAllData = repository.getAllData
     }
 
-    fun insertData(todo: TodoList) {
+    fun insertData(todo: TodoData) {
         viewModelScope.launch(IO) {
             repository.insertData(todo)
         }
