@@ -11,6 +11,7 @@ import com.pratthamarora.todoapp.data.model.TodoList
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
+import kotlinx.android.synthetic.main.fragment_add.view.*
 
 class AddFragment : Fragment() {
 
@@ -23,6 +24,7 @@ class AddFragment : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_add, container, false)
         setHasOptionsMenu(true)
+        view.spinnerPriority.onItemSelectedListener = sharedViewModel.listener
 
         return view
     }
