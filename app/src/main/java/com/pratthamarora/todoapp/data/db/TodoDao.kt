@@ -11,7 +11,7 @@ import com.pratthamarora.todoapp.data.model.TodoList
 interface TodoDao {
 
     @Query("SELECT * FROM todo_table ORDER BY id ASC")
-    suspend fun getAllData(): LiveData<List<TodoList>>
+     fun getAllData(): LiveData<List<TodoList>>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertData(todo: TodoList)
