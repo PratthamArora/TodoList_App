@@ -4,9 +4,11 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
+import androidx.room.TypeConverters
 import com.pratthamarora.todoapp.data.model.TodoList
 
 @Database(entities = [TodoList::class], version = 1)
+@TypeConverters(MyConverters::class)
 abstract class TodoDatabase : RoomDatabase() {
 
     abstract fun toDoDao(): TodoDao
