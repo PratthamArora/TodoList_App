@@ -10,7 +10,8 @@ import com.pratthamarora.todoapp.data.model.Priority
 import com.pratthamarora.todoapp.data.model.TodoList
 import kotlinx.android.synthetic.main.todo_item.view.*
 
-class TodoAdapter(private var todoList: List<TodoList>) : RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
+class TodoAdapter(private var todoList: List<TodoList>) :
+    RecyclerView.Adapter<TodoAdapter.TodoViewHolder>() {
 
     inner class TodoViewHolder(view: View) : RecyclerView.ViewHolder(view)
 
@@ -23,7 +24,7 @@ class TodoAdapter(private var todoList: List<TodoList>) : RecyclerView.Adapter<T
     override fun getItemCount(): Int = todoList.size
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val todo = todoList[position]
+        val todo = todoList.asReversed()[position]
         val priority = todo.priority
         holder.itemView.apply {
             titleTV.text = todo.title
