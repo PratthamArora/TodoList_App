@@ -2,12 +2,14 @@ package com.pratthamarora.todoapp.ui.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.TodoData
+import com.pratthamarora.todoapp.utils.Utility.hideTheKeyboard
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_add.*
@@ -48,6 +50,7 @@ class AddFragment : Fragment() {
         val desc = descriptionET.text.toString()
         val validate = sharedViewModel.checkData(title, desc)
         if (validate) {
+            requireContext().hideTheKeyboard(descriptionET as EditText)
             val newTodo = TodoData(
                 0,
                 title,

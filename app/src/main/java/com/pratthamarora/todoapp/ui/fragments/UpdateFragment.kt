@@ -2,6 +2,7 @@ package com.pratthamarora.todoapp.ui.fragments
 
 import android.os.Bundle
 import android.view.*
+import android.widget.EditText
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
@@ -10,6 +11,7 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.TodoData
+import com.pratthamarora.todoapp.utils.Utility.hideTheKeyboard
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
@@ -77,6 +79,7 @@ class UpdateFragment : Fragment() {
         val priority = spinnerPriorityUpdate.selectedItem.toString()
         val validate = sharedViewModel.checkData(title, desc)
         if (validate) {
+            requireContext().hideTheKeyboard(descriptionETUpdate as EditText)
             val updatedData = TodoData(
                 args.todo.id,
                 title,
