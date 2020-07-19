@@ -33,7 +33,7 @@ class TodoAdapter(var todoList: List<TodoData>) :
     override fun getItemCount(): Int = todoList.size
 
     override fun onBindViewHolder(holder: TodoViewHolder, position: Int) {
-        val todo = todoList.asReversed()[position]
+        val todo = todoList[position]
         holder.bind(todo)
     }
 

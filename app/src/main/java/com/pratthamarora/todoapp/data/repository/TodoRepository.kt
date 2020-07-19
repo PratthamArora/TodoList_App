@@ -7,6 +7,8 @@ import com.pratthamarora.todoapp.data.model.TodoData
 class TodoRepository(private val todoDao: TodoDao) {
 
     val getAllData = todoDao.getAllData()
+    val sortByHighPriority = todoDao.sortByHighPriority()
+    val sortByLowPriority = todoDao.sortByLowPriority()
 
     suspend fun insertData(todo: TodoData) {
         todoDao.insertData(todo)

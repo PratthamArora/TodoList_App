@@ -68,7 +68,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
     private fun swipeToDelete(recyclerView: RecyclerView) {
         val swipeCallback = object : SwipeToDelete() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
-                val item = todoAdapter.todoList.asReversed()[viewHolder.adapterPosition]
+                val item = todoAdapter.todoList[viewHolder.adapterPosition]
                 viewModel.deleteData(item)
                 restoreData(viewHolder.itemView, item)
             }
@@ -103,9 +103,13 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.deleteAll -> {
-                deleteAllData()
-            }
+            R.id.deleteAll -> deleteAllData()
+            R.id.priorityHigh -> viewModel.sortByHighPriority.observe(viewLifecycleOwner, Observer {
+                todoAdapter.setList(it)
+            })
+            R.id.priorityLow -> viewModel.sortByLowPriority.observe(viewLifecycleOwner, Observer {
+                todoAdapter.setList(it)
+            })
         }
         return super.onOptionsItemSelected(item)
     }
