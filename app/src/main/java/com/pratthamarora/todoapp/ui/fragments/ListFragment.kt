@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.google.android.material.snackbar.Snackbar
 import com.pratthamarora.todoapp.R
+import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.databinding.FragmentListBinding
 import com.pratthamarora.todoapp.ui.adapter.TodoAdapter
 import com.pratthamarora.todoapp.utils.SwipeToDelete
@@ -63,15 +65,28 @@ class ListFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = todoAdapter.todoList.asReversed()[viewHolder.adapterPosition]
                 viewModel.deleteData(item)
-                Toast.makeText(
-                    requireContext(),
-                    "Successfully Deleted ${item.title}",
-                    Toast.LENGTH_SHORT
-                ).show()
+                todoAdapter.notifyItemRemoved(viewHolder.adapterPosition)
+                restoreData(viewHolder.itemView, item, viewHolder.adapterPosition)
             }
         }
         val itemTouchHelper = ItemTouchHelper(swipeCallback)
         itemTouchHelper.attachToRecyclerView(recyclerView)
+    }
+
+    private fun restoreData(
+        view: View,
+        todoData: TodoData,
+        pos: Int
+    ) {
+        Snackbar.make(view, "Deleted ${todoData.title}", Snackbar.LENGTH_LONG).also {
+            it.apply {
+                setAction("Undo") {
+                    viewModel.insertData(todoData)
+                    todoAdapter.notifyItemChanged(pos)
+                }
+                show()
+            }
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
