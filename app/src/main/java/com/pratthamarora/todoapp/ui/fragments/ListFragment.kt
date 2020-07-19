@@ -3,19 +3,19 @@ package com.pratthamarora.todoapp.ui.fragments
 import android.os.Bundle
 import android.view.*
 import android.widget.Toast
-import androidx.core.view.isGone
-import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.databinding.FragmentListBinding
 import com.pratthamarora.todoapp.ui.adapter.TodoAdapter
+import com.pratthamarora.todoapp.utils.SwipeToDelete
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
-import kotlinx.android.synthetic.main.fragment_list.view.*
 
 class ListFragment : Fragment() {
 
@@ -54,7 +54,24 @@ class ListFragment : Fragment() {
         binding.listRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = todoAdapter
+            swipeToDelete(this)
         }
+    }
+
+    private fun swipeToDelete(recyclerView: RecyclerView) {
+        val swipeCallback = object : SwipeToDelete() {
+            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                val item = todoAdapter.todoList.asReversed()[viewHolder.adapterPosition]
+                viewModel.deleteData(item)
+                Toast.makeText(
+                    requireContext(),
+                    "Successfully Deleted ${item.title}",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+        }
+        val itemTouchHelper = ItemTouchHelper(swipeCallback)
+        itemTouchHelper.attachToRecyclerView(recyclerView)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
