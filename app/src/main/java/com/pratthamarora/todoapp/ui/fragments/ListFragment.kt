@@ -18,6 +18,7 @@ import com.pratthamarora.todoapp.ui.adapter.TodoAdapter
 import com.pratthamarora.todoapp.utils.SwipeToDelete
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
 class ListFragment : Fragment() {
 
@@ -56,6 +57,9 @@ class ListFragment : Fragment() {
         binding.listRecyclerView.apply {
             layoutManager = LinearLayoutManager(requireActivity())
             adapter = todoAdapter
+            itemAnimator = SlideInUpAnimator().apply {
+                addDuration = 300
+            }
             swipeToDelete(this)
         }
     }
@@ -65,7 +69,6 @@ class ListFragment : Fragment() {
             override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
                 val item = todoAdapter.todoList.asReversed()[viewHolder.adapterPosition]
                 viewModel.deleteData(item)
-                todoAdapter.notifyItemRemoved(viewHolder.adapterPosition)
                 restoreData(viewHolder.itemView, item, viewHolder.adapterPosition)
             }
         }
@@ -82,7 +85,6 @@ class ListFragment : Fragment() {
             it.apply {
                 setAction("Undo") {
                     viewModel.insertData(todoData)
-                    todoAdapter.notifyItemChanged(pos)
                 }
                 show()
             }
