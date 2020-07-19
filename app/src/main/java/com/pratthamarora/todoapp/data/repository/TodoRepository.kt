@@ -1,5 +1,6 @@
 package com.pratthamarora.todoapp.data.repository
 
+import androidx.lifecycle.LiveData
 import com.pratthamarora.todoapp.data.db.TodoDao
 import com.pratthamarora.todoapp.data.model.TodoData
 
@@ -21,6 +22,10 @@ class TodoRepository(private val todoDao: TodoDao) {
 
     suspend fun deleteAllData() {
         todoDao.deleteAllData()
+    }
+
+    fun searchData(query: String): LiveData<List<TodoData>> {
+        return todoDao.searchData(query)
     }
 
 }

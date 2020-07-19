@@ -44,4 +44,8 @@ class ToDoViewModel(application: Application) : AndroidViewModel(application) {
             repository.deleteAllData()
         }
     }
+
+    fun searchData(query: String): LiveData<List<TodoData>> {
+        return repository.searchData(query)
+    }
 }
