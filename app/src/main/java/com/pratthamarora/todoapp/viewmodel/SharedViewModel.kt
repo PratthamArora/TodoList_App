@@ -15,12 +15,10 @@ import com.pratthamarora.todoapp.data.model.TodoData
 
 class SharedViewModel(application: Application) : AndroidViewModel(application) {
 
-    private val _emptyDB: MutableLiveData<Boolean> = MutableLiveData(true)
-    val emptyDB: LiveData<Boolean>
-        get() = _emptyDB
+    val emptyDB: MutableLiveData<Boolean>  = MutableLiveData(true)
 
     fun checkEmptyDB(todoData: List<TodoData>) {
-        _emptyDB.value = todoData.isEmpty()
+        emptyDB.value = todoData.isEmpty()
     }
 
     val listener: AdapterView.OnItemSelectedListener = object : AdapterView.OnItemSelectedListener {

@@ -8,10 +8,10 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.Observer
-import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pratthamarora.todoapp.R
+import com.pratthamarora.todoapp.databinding.FragmentListBinding
 import com.pratthamarora.todoapp.ui.adapter.TodoAdapter
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
@@ -22,49 +22,38 @@ class ListFragment : Fragment() {
     private val viewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel by viewModels<SharedViewModel>()
     private val todoAdapter by lazy { TodoAdapter(arrayListOf()) }
+    private var _binding: FragmentListBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_list, container, false)
-        val recyclerView = view.listRecyclerView
-        recyclerView.apply {
-            layoutManager = LinearLayoutManager(requireActivity())
-            adapter = todoAdapter
-        }
-        viewModel.getAllData.observe(viewLifecycleOwner, Observer {
-            todoAdapter.setList(it)
-            sharedViewModel.checkEmptyDB(it)
-        })
-        sharedViewModel.emptyDB.observe(viewLifecycleOwner, Observer {
-            setupNoData(it)
-        })
+
+        _binding = FragmentListBinding.inflate(inflater, container, false)
+        binding.lifecycleOwner = this
+        binding.sharedViewModel = sharedViewModel
+        setupRecyclerView()
+        observeViewModel()
+
         setHasOptionsMenu(true)
 
-        view.floatingActionButton.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_addFragment)
-        }
-        view.listLayout.setOnClickListener {
-            findNavController().navigate(R.id.action_listFragment_to_updateFragment)
-        }
-
-        return view
+        return binding.root
     }
 
-    private fun setupNoData(it: Boolean) {
-        if (it) {
-            view?.apply {
-                noDataImage.isVisible = true
-                noDataText.isVisible = true
-                listRecyclerView.isGone = true
-            }
-        } else {
-            view?.apply {
-                noDataImage.isGone = true
-                noDataText.isGone = true
-                listRecyclerView.isVisible = true
-            }
+    private fun observeViewModel() {
+        viewModel.getAllData.observe(viewLifecycleOwner, Observer {
+            sharedViewModel.checkEmptyDB(it)
+            todoAdapter.setList(it)
+        })
+
+    }
+
+    private fun setupRecyclerView() {
+        binding.listRecyclerView.apply {
+            layoutManager = LinearLayoutManager(requireActivity())
+            adapter = todoAdapter
         }
     }
 
@@ -97,5 +86,10 @@ class ListFragment : Fragment() {
             .create()
 
         dialog.show()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
