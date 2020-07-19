@@ -1,6 +1,7 @@
 package com.pratthamarora.todoapp.utils
 
 import android.view.View
+import android.widget.Spinner
 import androidx.core.view.isGone
 import androidx.core.view.isVisible
 import androidx.databinding.BindingAdapter
@@ -9,6 +10,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.navigation.findNavController
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.pratthamarora.todoapp.R
+import com.pratthamarora.todoapp.data.model.Priority
 
 class BindingAdapters {
 
@@ -33,5 +35,15 @@ class BindingAdapters {
             }
         }
 
+        @BindingAdapter("parsePriorityToInt")
+        @JvmStatic
+        fun parsePriorityToInt(view:Spinner,priority: Priority){
+            when (priority) {
+                Priority.HIGH -> view.setSelection(0)
+                Priority.MEDIUM -> view.setSelection(1)
+                Priority.LOW -> view.setSelection(2)
+            }
+        }
     }
+
 }

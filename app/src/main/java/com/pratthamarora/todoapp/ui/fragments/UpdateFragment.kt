@@ -11,11 +11,11 @@ import androidx.navigation.fragment.navArgs
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.TodoData
+import com.pratthamarora.todoapp.databinding.FragmentUpdateBinding
 import com.pratthamarora.todoapp.utils.Utility.hideTheKeyboard
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import kotlinx.android.synthetic.main.fragment_update.*
-import kotlinx.android.synthetic.main.fragment_update.view.*
 
 
 class UpdateFragment : Fragment() {
@@ -23,23 +23,20 @@ class UpdateFragment : Fragment() {
     private val args by navArgs<UpdateFragmentArgs>()
     private val sharedViewModel by viewModels<SharedViewModel>()
     private val viewModel by viewModels<ToDoViewModel>()
+    private var _binding: FragmentUpdateBinding? = null
+    private val binding
+        get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_update, container, false)
+        _binding = FragmentUpdateBinding.inflate(inflater, container, false)
+        binding.args = args
         setHasOptionsMenu(true)
 
-        view.apply {
-            titleETUpdate.setText(args.todo.title)
-            descriptionETUpdate.setText(args.todo.description)
-            spinnerPriorityUpdate.setSelection(sharedViewModel.parsePriority(args.todo.priority))
-            spinnerPriorityUpdate.onItemSelectedListener = sharedViewModel.listener
-        }
-
-
-        return view
+        binding.spinnerPriorityUpdate.onItemSelectedListener = sharedViewModel.listener
+        return binding.root
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -101,4 +98,8 @@ class UpdateFragment : Fragment() {
         inflater.inflate(R.menu.update_menu, menu)
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
 }
