@@ -15,4 +15,7 @@ interface TodoDao {
 
     @Update
     suspend fun updateData(todo: TodoData)
+
+    @Delete
+    suspend fun deleteData(todo: TodoData)
 }

@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
@@ -26,7 +27,6 @@ class UpdateFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment_update, container, false)
-
         setHasOptionsMenu(true)
 
         view.apply {
@@ -45,8 +45,30 @@ class UpdateFragment : Fragment() {
             R.id.save_menu -> {
                 updateData()
             }
+            R.id.delete_menu -> {
+                deleteData()
+            }
         }
         return super.onOptionsItemSelected(item)
+    }
+
+    private fun deleteData() {
+        val dialog = MaterialAlertDialogBuilder(requireContext(), R.style.AlertDialogTheme)
+            .setPositiveButton("Yes") { _, _ ->
+                viewModel.deleteData(args.todo)
+                Toast.makeText(
+                    requireContext(),
+                    "Successfully Deleted ${args.todo.title}",
+                    Toast.LENGTH_SHORT
+                ).show()
+                findNavController().navigate(R.id.action_updateFragment_to_listFragment)
+            }
+            .setNegativeButton("No") { _, _ -> }
+            .setTitle("Delete ${args.todo.title}?")
+            .setMessage("Are you sure you want to delete '${args.todo.title}'?")
+            .create()
+
+        dialog.show()
     }
 
     private fun updateData() {
