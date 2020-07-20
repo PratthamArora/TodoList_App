@@ -3,4 +3,4 @@ A TodoList app that uses Room Database along with Coroutines to save todos. The 
 
 # Demo
 
-![ToDo List Demo](app/demo/demo_gif.gif)
+ <img src="app/demo/demo_gif.gif" width="250"/>
