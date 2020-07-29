@@ -17,6 +17,7 @@ import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.databinding.FragmentListBinding
 import com.pratthamarora.todoapp.ui.adapter.TodoAdapter
 import com.pratthamarora.todoapp.utils.SwipeToDelete
+import com.pratthamarora.todoapp.utils.Utility
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
@@ -42,6 +43,7 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         observeViewModel()
 
         setHasOptionsMenu(true)
+        Utility.hideSoftKeyboard(requireActivity())
 
         return binding.root
     }
