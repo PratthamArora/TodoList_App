@@ -15,9 +15,10 @@ import com.pratthamarora.todoapp.databinding.FragmentUpdateBinding
 import com.pratthamarora.todoapp.utils.Utility.hideTheKeyboard
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_update.*
 
-
+@AndroidEntryPoint
 class UpdateFragment : Fragment() {
 
     private val args by navArgs<UpdateFragmentArgs>()

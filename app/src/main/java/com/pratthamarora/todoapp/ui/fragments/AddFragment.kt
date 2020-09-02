@@ -12,9 +12,11 @@ import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.utils.Utility.hideTheKeyboard
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
 
+@AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private val viewModel by viewModels<ToDoViewModel>()

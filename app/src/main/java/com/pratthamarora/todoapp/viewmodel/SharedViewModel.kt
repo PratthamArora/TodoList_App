@@ -1,21 +1,24 @@
 package com.pratthamarora.todoapp.viewmodel
 
-import android.app.Application
+import android.content.Context
 import android.text.TextUtils
 import android.view.View
 import android.widget.AdapterView
 import android.widget.TextView
 import androidx.core.content.ContextCompat
-import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.LiveData
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.ViewModel
 import com.pratthamarora.todoapp.R
 import com.pratthamarora.todoapp.data.model.Priority
 import com.pratthamarora.todoapp.data.model.TodoData
+import dagger.hilt.android.qualifiers.ApplicationContext
 
-class SharedViewModel(application: Application) : AndroidViewModel(application) {
+class SharedViewModel @ViewModelInject constructor(
+    @ApplicationContext application: Context
+) : ViewModel() {
 
-    val emptyDB: MutableLiveData<Boolean>  = MutableLiveData(false)
+    val emptyDB: MutableLiveData<Boolean> = MutableLiveData(false)
 
     fun checkEmptyDB(todoData: List<TodoData>) {
         emptyDB.value = todoData.isEmpty()
@@ -72,6 +75,5 @@ class SharedViewModel(application: Application) : AndroidViewModel(application) 
             else -> Priority.LOW
         }
     }
-
 
 }

@@ -1,29 +1,21 @@
 package com.pratthamarora.todoapp.viewmodel
 
-import android.app.Application
-import androidx.lifecycle.AndroidViewModel
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.pratthamarora.todoapp.data.db.TodoDatabase
 import com.pratthamarora.todoapp.data.model.TodoData
 import com.pratthamarora.todoapp.data.repository.TodoRepository
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.launch
 
-class ToDoViewModel(application: Application) : AndroidViewModel(application) {
-
-    private val todoDao = TodoDatabase.getDatabase(application).toDoDao()
+class ToDoViewModel @ViewModelInject constructor(
     private val repository: TodoRepository
-    val getAllData: LiveData<List<TodoData>>
-    val sortByHighPriority: LiveData<List<TodoData>>
-    val sortByLowPriority: LiveData<List<TodoData>>
+) : ViewModel() {
 
-    init {
-        repository = TodoRepository(todoDao)
-        getAllData = repository.getAllData
-        sortByHighPriority = repository.sortByHighPriority
-        sortByLowPriority = repository.sortByLowPriority
-    }
+    val getAllData: LiveData<List<TodoData>> = repository.getAllData
+    val sortByHighPriority: LiveData<List<TodoData>> = repository.sortByHighPriority
+    val sortByLowPriority: LiveData<List<TodoData>> = repository.sortByLowPriority
 
     fun insertData(todo: TodoData) {
         viewModelScope.launch(IO) {
