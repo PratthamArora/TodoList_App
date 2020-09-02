@@ -20,8 +20,10 @@ import com.pratthamarora.todoapp.utils.SwipeToDelete
 import com.pratthamarora.todoapp.utils.Utility
 import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
+import dagger.hilt.android.AndroidEntryPoint
 import jp.wasabeef.recyclerview.animators.SlideInUpAnimator
 
+@AndroidEntryPoint
 class ListFragment : Fragment(), SearchView.OnQueryTextListener {
 
     private val viewModel by viewModels<ToDoViewModel>()
