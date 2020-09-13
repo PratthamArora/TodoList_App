@@ -17,6 +17,8 @@ import com.pratthamarora.todoapp.viewmodel.SharedViewModel
 import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_update.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class UpdateFragment : Fragment() {
@@ -24,6 +26,7 @@ class UpdateFragment : Fragment() {
     private val args by navArgs<UpdateFragmentArgs>()
     private val sharedViewModel by viewModels<SharedViewModel>()
     private val viewModel by viewModels<ToDoViewModel>()
+    private val sdf = SimpleDateFormat("MMM dd yyyy, h:mm aa", Locale.getDefault())
     private var _binding: FragmentUpdateBinding? = null
     private val binding
         get() = _binding!!
@@ -76,13 +79,15 @@ class UpdateFragment : Fragment() {
         val desc = descriptionETUpdate.text.toString()
         val priority = spinnerPriorityUpdate.selectedItem.toString()
         val validate = sharedViewModel.checkData(title, desc)
+        val dateCreated = sdf.format(System.currentTimeMillis())
         if (validate) {
             requireContext().hideTheKeyboard(descriptionETUpdate as EditText)
             val updatedData = TodoData(
                 args.todo.id,
                 title,
                 sharedViewModel.setPriority(priority),
-                desc
+                desc,
+                dateCreated
             )
             viewModel.updateData(updatedData)
             Toast.makeText(requireContext(), "Todo updated successfully!", Toast.LENGTH_SHORT)

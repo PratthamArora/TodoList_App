@@ -15,12 +15,15 @@ import com.pratthamarora.todoapp.viewmodel.ToDoViewModel
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.android.synthetic.main.fragment_add.*
 import kotlinx.android.synthetic.main.fragment_add.view.*
+import java.text.SimpleDateFormat
+import java.util.*
 
 @AndroidEntryPoint
 class AddFragment : Fragment() {
 
     private val viewModel by viewModels<ToDoViewModel>()
     private val sharedViewModel by viewModels<SharedViewModel>()
+    private val sdf = SimpleDateFormat("MMM dd yyyy, h:mm aa", Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -50,13 +53,15 @@ class AddFragment : Fragment() {
         val priority = spinnerPriority.selectedItem.toString()
         val desc = descriptionET.text.toString()
         val validate = sharedViewModel.checkData(title, desc)
+        val dateCreated = sdf.format(System.currentTimeMillis())
         if (validate) {
             requireContext().hideTheKeyboard(descriptionET as EditText)
             val newTodo = TodoData(
                 0,
                 title,
                 sharedViewModel.setPriority(priority),
-                desc
+                desc,
+                dateCreated
             )
             viewModel.insertData(newTodo)
             Toast.makeText(requireContext(), "Successfully Added!", Toast.LENGTH_SHORT).show()

@@ -100,7 +100,6 @@ class ListFragment : Fragment(), SearchView.OnQueryTextListener {
         val search = menu.findItem(R.id.search)
         val searchView = search.actionView as? SearchView
         searchView?.apply {
-            isSubmitButtonEnabled = true
             setOnQueryTextListener(this@ListFragment)
         }
     }

@@ -37,7 +37,7 @@
             android:layout_marginBottom="24dp"
             android:clickable="true"
             android:focusable="true"
-            android:navigateToAdd="@{true}"
+            android:navigateToAddDir="@{true}"
             android:src="@drawable/ic_baseline_add_24"
             android:tint="@color/white"
             app:backgroundTint="@color/colorPrimary"
