@@ -20,9 +20,9 @@ class BindingAdapters {
 
     companion object {
 
-        @BindingAdapter("android:navigateToAdd")
+        @BindingAdapter("android:navigateToAddDir")
         @JvmStatic
-        fun navigateToAdd(view: FloatingActionButton, navigate: Boolean) {
+        fun navigateToAddDir(view: FloatingActionButton, navigate: Boolean) {
             view.setOnClickListener {
                 if (navigate) {
                     view.findNavController().navigate(R.id.action_listFragment_to_addFragment)
