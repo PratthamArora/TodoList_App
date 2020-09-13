@@ -4,4 +4,4 @@ A TodoList app that uses Room Database along with Coroutines to save todos. Dagg
 
 # Demo
 
- <img src="app/demo/demo_gif.gif" width="250"/>
+ <img src="app/demo/todoDemo.gif" width="300"/>
